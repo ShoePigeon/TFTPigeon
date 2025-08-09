@@ -1,0 +1,83 @@
+{% extends "base.html" %} {% block content %}
+<div class="form-container">
+  <h1 class="form-title">Add Task</h1>
+  <form action="/task/add_task" method="POST" class="form-content">
+    <!-- Task Name -->
+    <div class="form-group">
+      <label for="task_name" class="form-label">Task Name:</label>
+      <input
+        type="text"
+        id="task_name"
+        name="task_name"
+        class="input-field"
+        placeholder="Enter the task name"
+        required
+      />
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label for="description" class="form-label">Description:</label>
+      <textarea
+        id="description"
+        name="description"
+        class="input-field"
+        placeholder="Provide a brief description of the task"
+        rows="5"
+        required
+      ></textarea>
+    </div>
+
+    <!-- Deadline -->
+    <div class="form-group">
+      <label for="deadline" class="form-label">Deadline:</label>
+      <input
+        type="date"
+        id="deadline"
+        name="deadline"
+        class="input-field"
+        required
+      />
+    </div>
+
+    <!-- Priority -->
+    <div class="form-group">
+      <label for="priority" class="form-label">Priority:</label>
+      <select id="priority" name="priority" class="input-field" required>
+        <option value="1">High</option>
+        <option value="2">Medium</option>
+        <option value="3">Low</option>
+      </select>
+    </div>
+
+    <!-- Status -->
+    <div class="form-group">
+      <label for="status" class="form-label">Status:</label>
+      <select id="status" name="status" class="input-field" required>
+        <option value="Not Started">Not Started</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+
+    <!-- Tags -->
+    <div class="form-group">
+      <label for="tags" class="form-label">Tags:</label>
+      <select id="tags" name="tags[]" class="input-field" multiple>
+        <option value="3">Frontend</option>
+        <option value="4">React</option>
+        <option value="5">Backend</option>
+        <option value="6">API</option>
+      </select>
+      <small class="form-hint"
+        >Hold Ctrl (Windows) or Command (Mac) to select multiple tags.</small
+      >
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group form-actions">
+      <button type="submit" class="btn btn-large btn-primary">Add Task</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

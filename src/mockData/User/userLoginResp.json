@@ -1,0 +1,7 @@
+{
+  "status": 200,
+  "message": "Login successful",
+  "user_id": 1,
+  "user_name": "john_doe",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxfQ.abc123token"
+}

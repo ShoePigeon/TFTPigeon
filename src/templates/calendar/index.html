@@ -1,0 +1,141 @@
+{% extends 'base.html' %} {% block header %}
+<div class="container-placeholder-info">
+  <h1>Calendar</h1>
+</div>
+{% endblock %} {% block content %}
+<div class="form-container-info">
+  <!-- Sidebar -->
+
+  <div id="calendar-header">
+    <span id="month-name"></span>
+  </div>
+
+  <div class="calendar-flex">
+    <!-- Calendar Display -->
+    <div class="calendar-box">
+      <div id="calendar"></div>
+    </div>
+
+    <div class="task-list-container">
+      <h3>All Tasks</h3>
+      <ul class="task-list" id="task-list">
+        <!-- Tasks will be added here by JavaScript -->
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentDate = new Date();
+
+  // Function to update the month and year display
+  function updateMonthDisplay() {
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const monthName = monthNames[currentDate.getMonth()];
+    const year = currentDate.getFullYear();
+
+    // Update the month name in the calendar header
+    document.getElementById("month-name").textContent = `${monthName} ${year}`;
+  }
+  updateMonthDisplay();
+
+  let tasks = [];
+
+  // Fetch tasks asynchronously from Flask API
+  async function fetchTasks() {
+    try {
+      const response = await fetch("/api/tasks");
+      if (!response.ok) {
+        throw new Error("Failed to fetch tasks");
+      }
+      tasks = await response.json();
+      generateCalendar(new Date().getMonth(), new Date().getFullYear()); // Generate calendar after fetching tasks
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  }
+
+  // Function to generate the calendar grid for the current month
+  function generateCalendar(month, year) {
+    const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get the number of days in the month
+    const firstDayOfMonth = new Date(year, month, 1).getDay(); // Get the first day of the month (0 = Sunday, 1 = Monday, etc.)
+    const calendarContainer = document.getElementById("calendar");
+    let calendarHTML = "<table><thead><tr>";
+
+    // Days of the week
+    const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    for (let i = 0; i < 7; i++) {
+      calendarHTML += `<th>${weekdays[i]}</th>`;
+    }
+    calendarHTML += "</tr></thead><tbody><tr>";
+
+    // Empty cells before the first day of the month
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      calendarHTML += "<td></td>";
+    }
+
+    // Calendar days
+    for (let day = 1; day <= daysInMonth; day++) {
+      let taskForDay = tasks.filter(
+        (task) =>
+          new Date(task.deadline_date).getDate() === day &&
+          new Date(task.deadline_date).getMonth() === month &&
+          new Date(task.deadline_date).getFullYear() === year,
+      );
+
+      if (taskForDay.length > 0) {
+        calendarHTML += `<td class="task-day" onclick="showTasks(${day})">${day}<br><span>${taskForDay.length} Task(s)</span></td>`;
+      } else {
+        calendarHTML += `<td>${day}</td>`;
+      }
+
+      // Start a new row at the end of the week
+      if ((firstDayOfMonth + day) % 7 === 0) {
+        calendarHTML += "</tr><tr>";
+      }
+    }
+
+    // Close the table
+    calendarHTML += "</tr></tbody></table>";
+    calendarContainer.innerHTML = calendarHTML;
+  }
+
+  // Function to show tasks for a specific day
+  function showTasks(day) {
+    const taskList = document.getElementById("task-list");
+    taskList.innerHTML = ""; // Clear the task list
+    tasks.forEach((task) => {
+      const taskDate = new Date(task.deadline_date);
+      if (taskDate.getDate() === day) {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `<strong>${task.task_name}</strong><br><span>${task.deadline_date}</span><br><em>${task.project_name}</em>`;
+        taskList.appendChild(listItem);
+      }
+    });
+  }
+
+  // Initialize calendar
+  fetchTasks(); // Fetch tasks first before generating the calendar
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+</script>
+
+{% endblock %}

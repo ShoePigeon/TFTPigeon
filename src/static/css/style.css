@@ -1,0 +1,1966 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&display=swap");
+
+:root {
+  --primary: #a87c68; /* Warm terracotta */
+  --primary-dark: #9d6b53;
+  --primary-hover: #b99884; /* Softer peachy terracotta */
+  --secondary: #cae0d5; /* Gentle sage green */
+  --secondary-hover: #dfe7e4; /* Muted pastel green */
+  --gray: #767676; /* Calm gray for text and borders */
+  --light-gray: #f7f5f2; /* Linen background */
+  --black: #2d2d2d; /* Soft charcoal */
+  --white: #fdfaf4; /* Creamy white */
+  --font-primary: "Playfair Display", serif;
+  --font-secondary: "Roboto", sans-serif;
+  --danger: rgb(168, 86, 86);
+  --success: rgb(143, 195, 143);
+}
+
+html {
+  font-family: var(--font-primary);
+  background-color: var(--light-gray);
+}
+
+body {
+  background: var(--primary);
+  max-width: 100%;
+  height: 100vh;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
+  color: var(--black);
+}
+#Project-Name{
+  color: white;
+  font-size: 20px;
+
+}
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-primary);
+  color: var(--primary);
+  margin: 1rem 0;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+/* Links */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+/* Buttons */
+.btn {
+  font-weight: bold;
+  border: 2px solid var(--primary-hover);
+  padding: 12px 20px;
+  font-size: 16px;
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.btn a {
+  color: var(--light-gray);
+}
+
+.btn:hover {
+  background: var(--primary-hover);
+  color: var(--white);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly deeper hover shadow */
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(168, 124, 104, 0.5); /* Focus ring */
+}
+
+/* Input Fields */
+.input-field {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid var(--gray);
+  border-radius: 8px;
+  background-color: var(--light-gray);
+  box-sizing: border-box;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: var(--primary);
+  background-color: var(--white);
+  outline: none;
+}
+
+/* Boxes */
+.box-info {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: 10px; /* Cozy round corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+}
+
+.box-info:hover {
+  background-color: var(--secondary-hover);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Subtle hover shadow */
+}
+
+/* Calendar */
+#calendar {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid var(--light-gray);
+  border-radius: 10px;
+  background-color: var(--light-gray);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#month-name {
+  color: var(--gray);
+  font-family: var(--font-primary);
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+#calendar th,
+#calendar td {
+  text-align: center;
+  padding: 12px;
+  border: 1px solid var(--light-gray);
+}
+
+#calendar .task-day {
+  background-color: var(--secondary);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#calendar .task-day:hover {
+  background-color: var(--secondary-hover);
+}
+
+/* Modal */
+.modal-content {
+  background-color: var(--white);
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+  color: var(--danger);
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: var(--primary);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .form-container {
+    flex-direction: column; /* Stack items vertically */
+    padding: 10px;
+  }
+}
+
+a {
+  color: var(--primary);
+}
+
+hr {
+  border: none;
+  border-top: 1px solid lightgray;
+}
+
+/* top NAV bar styling*/
+nav {
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  z-index: 1; /* Ensure it is above the overlay */
+  position: relative; /* Required for z-index to work */
+  padding-bottom: 0.5rem;
+}
+
+nav h1 {
+  flex: auto;
+  margin: 0;
+  color: var(--light-gray);
+}
+
+nav h1 a {
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  color: var(--light-gray);
+  font-size: 1.5rem;
+  padding-left: 1rem;
+}
+
+nav ul {
+  align-items: center;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li a,
+nav ul li span,
+header .action {
+  display: block;
+  padding-right: 1.4rem;
+  color: var(--light-gray);
+  font-size: 1.5em;
+}
+
+#logout {
+  margin-left: 0.7em;
+}
+
+.content {
+  padding: 0 1rem 1rem;
+}
+
+.content > header {
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: flex-end;
+}
+
+.content > header h1 {
+  flex: auto;
+  margin: 1rem 0 0.25rem 0;
+}
+
+.flash {
+  margin: 1em 0;
+  padding: 1em;
+  background: #cae6f6;
+  border: 1px solid #377ba8;
+}
+
+.post > header {
+  display: flex;
+  align-items: flex-end;
+  font-size: 0.85em;
+}
+
+.post > header > div:first-of-type {
+  flex: auto;
+}
+
+.post > header h1 {
+  font-size: 1.5em;
+  margin-bottom: 0;
+}
+
+.post .about {
+  color: slategray;
+  font-style: italic;
+}
+
+.post .body {
+  white-space: pre-line;
+}
+
+.content:last-child {
+  margin-bottom: 0;
+}
+
+.content form {
+  margin: 1em 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content label {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.content input,
+.content textarea {
+  margin-bottom: 1em;
+}
+
+.content textarea {
+  min-height: 12em;
+  resize: vertical;
+}
+
+input.danger {
+  color: #cc2f2e;
+}
+
+input[type="submit"] {
+  align-self: start;
+  min-width: 10em;
+}
+
+.btn {
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+  border-radius: 4px; /* Default slight rounding */
+  padding: 10px 15px; /* Default padding */
+  font-size: 16px; /* Default font size */
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+/* Hover and focus styles */
+.btn:hover {
+  background: var(--primary-hover);
+  color: var(--white); /* Default hover text color */
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(55, 123, 168, 0.5); /* Focus ring */
+}
+
+/* Button sizes */
+.btn-small {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.btn-medium {
+  padding: 10px 20px; /* Default size */
+}
+
+.btn-large {
+  padding: 16px 32px;
+  font-size: 20px;
+}
+/* Button style 3: Rounded */
+.btn-rounded {
+  border-radius: 50px; /* Full rounding */
+}
+
+/* Button style 4: Square (default rounding already minimal) */
+.btn-square {
+  border-radius: 4px; /* Override for sharper corners, if needed */
+}
+
+/* Centering */
+.btn-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Left alignment */
+.btn-left {
+  display: flex;
+  justify-content: flex-start;
+}
+/* button stlyes end */
+
+/* Style for regular input fields (username, password, etc.) */
+.input-field {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 15px; /* Space between inputs */
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.input-field:focus {
+  border-color: var(--primary);
+  background-color: #fff;
+  outline: none;
+}
+
+/* register page styles -  need to change classes once standard design is decided*/
+.container-placeholder {
+  margin: 5px;
+}
+
+/* Container to create a flex layout with two sides */
+/* Base Layout for Larger Screens */
+.form-container {
+  display: flex;
+  flex-direction: row; /* Side-by-side layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 100%; /* Full width */
+  padding: 20px;
+  gap: 20px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+.image-side {
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  flex: 1; /* Take equal space as the form */
+  display: flex;
+  justify-content: center; /* Center image horizontally */
+  align-items: center; /* Center image vertically */
+  max-width: 50%; /* Prevent overly large images */
+}
+
+.form-image {
+  width: 100%; /* Fit within container */
+  height: auto;
+  object-fit: cover; /* Maintain aspect ratio */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.form-side {
+  flex: 1; /* Take equal space as the image */
+  justify-content: center; /* Vertically center form fields */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Card effect */
+  max-width: 450px; /* Restrict maximum width */
+  width: 100%; /* Ensure full width on smaller screens */
+}
+.form-side form {
+  padding: 20px;
+}
+
+/* Right side: Form */
+.form-side-2 {
+  flex: 1; /* Takes up 50% of the space */
+  display: flex;
+  flex-direction: column; /* Stack form fields vertically */
+  justify-content: center; /* Vertically centers the form */
+  padding: 20px;
+  /* Card effect */
+  background-color: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Fields */
+.form-field {
+  margin-bottom: 20px; /* Space between fields */
+}
+
+.input-field {
+  width: 100%; /* Full width input fields */
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.form-field:last-child {
+  text-align: center; /* Center only the last .form-field */
+}
+
+.form-field:last-child .btn {
+  display: inline-block; /* Ensure proper inline behavior */
+  margin: 0 auto; /* Center the button horizontally */
+}
+
+.login-register-prompt {
+  text-align: center; /* Center the text horizontally */
+}
+
+.login-register-link {
+  color: var(--primary); /* Link color */
+  text-decoration: none; /* Remove underline from the link */
+}
+
+.login-register-link:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+/* Responsive Design: Smaller Screens */
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .form-container {
+    flex-direction: column; /* Stack items vertically */
+  }
+}
+
+/*dashboard styles*/
+.container-dashboard {
+  display: grid;
+  width: 96%;
+  gap: 1.8rem;
+  grid-template-columns: 14rem auto 14rem;
+  margin: 0 auto;
+}
+a {
+  color: var(--primary);
+}
+h1 {
+  font-weight: 800;
+  font-size: 1.8rem;
+}
+h2 {
+  font-size: 0.87rem;
+}
+h3 {
+  font-size: 0.87rem;
+}
+h4 {
+  font-size: 0.77rem;
+}
+h5 {
+  font-size: 0.75rem;
+}
+aside {
+  height: 100vh;
+}
+aside .top {
+  background-color: var(--secondary-hover);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1.4rem;
+}
+
+aside .logo {
+  display: flex;
+  gap: 1rem;
+}
+/* close icon on navbar */
+aside .top div.close {
+  display: none;
+}
+
+aside .sidebar {
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  height: 85vh;
+  position: relative;
+  top: 1;
+}
+
+aside .h3 {
+  font-weight: 500;
+}
+aside .sidebar a {
+  display: flex;
+  color: var(--black);
+  margin-left: 2rem;
+  gap: 1 rem;
+  align-items: center;
+  height: 3.2rem;
+  transition: all 0.1s ease;
+}
+
+/*forms*/
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Header and Navigation Styles */
+.container-placeholder-info {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.container-placeholder-info span {
+  font-size: 16px;
+  color: var(--primary);
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-right: 20px;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.container-placeholder-info span:hover {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.container-placeholder-info h1 {
+  font-family: var(--font-primary);
+  margin: 0;
+  text-align: center;
+  flex-grow: 1;
+  font-size: 2em;
+}
+
+/* Sidebar Styles */
+.sidenav-info {
+  width: 0;
+  background-color: var(--primary);
+  height: 100%;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav-info a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 18px;
+  color: var(--light-gray);
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav-info a:hover {
+  color: var(--white);
+}
+
+.sidenav-info a:first-child {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 20px;
+  color: var(--light-gray);
+}
+
+/* Content Layout */
+.form-container-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.box-info {
+  width: 60%;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+}
+
+.flex-container-info {
+  display: flex;
+  gap: 20px;
+  width: 60%;
+}
+
+.box-info ul {
+  list-style-type: none;
+  padding: 0;
+  font-family: var(--font-primary);
+  font-size: 16px;
+}
+
+.box-info ul li {
+  margin-bottom: 10px;
+}
+
+.box-info h3 {
+  font-family: var(--font-primary);
+  font-size: 20px;
+}
+
+.box-info p {
+  font-family: var(--font-primary);
+  font-size: 16px;
+}
+
+.box-info input[type="button"] {
+  padding: 10px 15px;
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.box-info input[type="button"]:hover {
+  background-color: var(--primary-hover);
+}
+
+/*Project List styles*/
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.project-card  {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  z-index: auto;
+  margin-bottom: 10px;
+}
+
+
+.project-card h2, .team-card h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.project-card .team {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.project-card .deadline {
+  color: var(--danger);
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.project-card .deadline.missed {
+  font-weight: bold;
+}
+
+.project-card .update {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.project-card .status {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--light-gray);
+  background: var(--primary); /* Ensure background for visibility */
+}
+
+.project-card .status.in-progress {
+  background: var(--danger);
+}
+
+.project-card .status.completed {
+  background: var(--success);
+}
+
+.projects-container a {
+  text-decoration: none;
+}
+
+/* Style for the status tag */
+.role-tag .status {
+  font-size: 0.8rem;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  display: inline-block;
+  text-transform: uppercase;
+  color: rgb(50, 124, 128);
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Grid Container for Projects */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal-width columns */
+  gap: 20px;
+  padding: 20px;
+  width: 100%; /* Ensure the grid takes up 100% of the parent width */
+  height: 100%; /* Ensure the grid takes up 100% of the parent's height */
+  box-sizing: border-box; /* Ensures padding does not overflow the grid */
+}
+
+.project-grid .project-item {
+  min-height: 250px; /* Ensures a minimum height for consistency */
+}
+
+/* Individual Project Items */
+
+.project-item:hover, .box-info-t:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Project Title */
+.project-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+/* Project Team and Update Info */
+.project-team,
+.project-update {
+  font-size: 0.9rem;
+  color: #666666;
+  margin-bottom: 8px;
+}
+
+/* Status Styles */
+.project-status {
+  display: inline-block;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+/* Status Colors */
+.status-in-progress {
+  background-color: #ffeeba;
+  color: #856404;
+}
+
+.status-completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-not-started {
+  background-color: #e2e3e5;
+  color: #6c757d;
+}
+
+/* Responsive Design: Single column for smaller screens */
+@media (max-width: 1000px) {
+  .project-grid {
+    margin: 0 auto; /* Center the grid horizontally */
+    grid-template-columns: 1fr; /* Single column layout */
+  }
+
+  .project-item {
+    padding: 15px; /* Reduce padding on smaller screens */
+  }
+
+  .project-title {
+    font-size: 1.2rem; /* Adjust title size */
+  }
+
+  .project-team,
+  .project-update {
+    font-size: 0.8rem; /* Adjust font size for secondary text */
+  }
+}
+
+/* Landing Page Stuff */
+/* Clickable projects */
+.landing-info {
+  justify-content: space-between;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Default to 1 column */
+  gap: 20px;
+  padding: 10px;
+  width: 100%;
+}
+
+.grid-item {
+  background: linear-gradient(135deg, #f3f3f3, #e0e0e0); /* Adds a subtle gradient */
+  padding: 20px; /* Maintains spacing */
+  text-align: center; /* Keeps content centered */
+  border: 1px solid #ccc; /* Subtle border for structure */
+  border-radius: 10px; /* Smoother rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a soft shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+}
+
+/* Add a hover effect for interactivity */
+.grid-item:hover {
+  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhances shadow on hover */
+}
+
+
+
+/* Styling for the landing-controls container */
+.landing-controls {
+  display: flex;
+  flex-direction: row; 
+  align-items: center; 
+  justify-content: space-around; 
+  gap: 20px; 
+  width: 100%;
+  max-width: 600px; 
+  margin: 20px auto; 
+  padding: 10px; 
+  background: linear-gradient(135deg, #ffffff, #f9f9f9); 
+  border: 1px solid #ddd; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+/* Individual custom-checkbox container */
+.custom-checkbox {
+  display: flex;
+  align-items: center; /* Center vertically */
+  gap: 10px; /* Space between checkbox and label text */
+  font-size: 1rem; /* Adjust font size */
+  color: #333; /* Text color for readability */
+  cursor: pointer; /* Indicates clickable behavior */
+}
+
+/* Hide the default checkbox */
+.custom-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+/* Custom checkbox appearance */
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc; /* Neutral border color */
+  border-radius: 4px; /* Slightly rounded edges */
+  background-color: #fff;
+  display: inline-block;
+  position: relative;
+  transition: all 0.3s ease; /* Smooth transitions */
+}
+
+/* Checked state */
+.custom-checkbox input[type="checkbox"]:checked + .checkbox-custom {
+  background-color: var(--primary-dark); /* Green when checked */
+  border-color: var(--primary);
+}
+
+/* Checkmark inside the custom checkbox */
+.custom-checkbox input[type="checkbox"]:checked + .checkbox-custom::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  top: 2px;
+  left: 7px;
+  transform: rotate(45deg); /* Create the checkmark */
+  transition: all 0.3s ease;
+}
+
+
+
+
+.project-link {
+  text-decoration: none; /* Removes underline */
+  color: inherit; /* Inherits text color from parent styles */
+  width: 90%;
+  margin-bottom: 0px;
+}
+
+.project-link:hover .box-info {
+  background-color: var(--light-gray); /* Add hover effect for better UX */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.calendar-info {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title Styling */
+.calendar-info h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+  font-family: var(--font-primary);
+}
+
+/* Weekly View Grid Layout */
+.weekly-view {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 columns for each day */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Day Box Styling */
+.day-box {
+  background-color: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 80%;
+}
+
+/* Day Heading */
+.day-box h4 {
+  font-size: 18px;
+  color: #4caf50;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Task List Styling */
+.day-box ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+/* Task Item Styling */
+.task-item {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* Task Name Styling */
+.task-name {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Deadline Styling */
+.task-deadline {
+  color: #888;
+  font-style: italic;
+}
+
+.calendar-info {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title Styling */
+.calendar-info h3 {
+  font-size: 24px;
+  color: var(--black);
+  margin-bottom: 15px;
+}
+
+/* Weekly View Grid Layout */
+.weekly-view {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 columns for each day */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Day Box Styling */
+.day-box {
+  background-color: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 80%;
+}
+
+/* Day Heading */
+.day-box h4 {
+  font-size: 18px;
+  color: #4caf50;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Task List Styling */
+.day-box ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+/* Task Item Styling */
+.task-item {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* Task Name Styling */
+.task-name {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Deadline Styling */
+.task-deadline {
+  color: #888;
+  font-style: italic;
+}
+
+/* Tags for team members or other items */
+.tag {
+  display: inline-block;
+  background-color: var(--secondary);
+  color: var(--black);
+  padding: 3px 8px;
+  font-size: 0.8rem; /* Smaller text */
+  font-weight: bold;
+  border-radius: 15px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.tag:hover {
+  background-color: var(--secondary-hover);
+  cursor: pointer;
+}
+
+/* Buttons for projects */
+.project-button {
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 5px 8px;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 4px;
+  margin: 5px;
+  text-align: center;
+  transition: background-color 0.3s;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.project-button:hover {
+  background-color: var(--primary-hover);
+  cursor: pointer;
+}
+
+/* Plus Button Styles */
+.add-team-button,
+.add-project-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.add-team-button:hover,
+.add-project-button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Container for the project items */
+.projects-container {
+  display: grid;
+  gap: 40px; /* Space between items */
+  grid-template-columns: repeat(2, 1fr); /* Creates two equal-width columns */
+  margin-bottom: 20px; /* Adds space below the container */
+}
+
+.box-info {
+  width: 60%;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+}
+
+.row-items {
+  display: block; /* Arrange items in a row */
+  gap: 20px; /* Space between the items in the row */
+}
+.project-item {
+  background-color: var(--white); /* White background for each project item */
+  border: 1px solid #ddd; /* Light border around each item */
+  padding: 20px; /* Add padding inside each item */
+  border-radius: 8px; /* Rounded corners for each item */
+  text-align: center; /* Center the text inside the item */
+  box-sizing: border-box; /* Ensure padding does not affect the size */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease; /* Smooth animation for any state changes */
+}
+.flex-container-info {
+  display: flex;
+  gap: 20px;
+  width: 60%;
+  justify-content: center; /* Align horizontally */
+}
+.full-width {
+  gap: 20px;
+  width: 100%;
+}
+.box-info ul {
+  list-style-type: none;
+  padding: 0;
+  font-family: var(--font-primary);
+  font-size: 16px;
+}
+
+.box-info ul li {
+  margin-bottom: 10px;
+}
+
+.box-info h3 {
+  font-family: var(--font-primary);
+  font-size: 20px;
+}
+
+.box-info p {
+  font-family: var(--font-primary);
+  font-size: 16px;
+}
+
+.box-info input[type="button"] {
+  padding: 10px 15px;
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.box-info input[type="button"]:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+}
+
+.modal-content {
+  background-color: var(--white);
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+  color: var(--danger);
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: var(--primary);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+}
+
+.btn {
+  background-color: var(--primary);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Styling for the assignee list */
+.assignee-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.assignee-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #f9f9f9;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.assignee-item:hover {
+  background-color: #eaeaea;
+}
+
+.assignee-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+.role-tag {
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.owner {
+  background-color: #4caf50;
+  color: white;
+}
+
+.member {
+  background-color: #2196f3;
+  color: white;
+}
+
+.no-assignees {
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+/* Container for the taskboard */
+.taskboard-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+}
+.taskboard-column {
+  width: 22%;
+  background-color: #f4f7fb;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  min-height: 400px; /* Ensures a minimum height for columns */
+}
+.taskboard-column h3 {
+  text-align: center;
+  color: #333;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+.task-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: move; /* Indicate draggable items */
+}
+.task-item:hover {
+  background-color: #f1f1f1;
+}
+.task-item h4 {
+  font-size: 16px;
+  margin: 0;
+  color: #333;
+}
+.task-item p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+.task-item .status-label {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Specific Column Colors */
+#notStartedColumn {
+  background-color: #ffcccc; /* Light Red */
+  border-color: #ff6666; /* Darker Red */
+}
+
+#inProgressColumn {
+  background-color: #cce5ff; /* Light Blue */
+  border-color: #3399ff; /* Darker Blue */
+}
+
+#completedColumn {
+  background-color: #d9f2d9; /* Light Green */
+  border-color: #66cc66; /* Darker Green */
+}
+
+#cancelledColumn {
+  background-color: #ffe6cc; /* Light Orange */
+  border-color: #ff9966; /* Darker Orange */
+}
+
+/* Responsive Styling */
+@media screen and (max-width: 1024px) {
+  .taskboard-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .taskboard-column {
+    width: 100%;
+    min-height: 350px; /* Optional: adjust as needed */
+  }
+}
+
+/* Optional additional styles for smaller screens */
+@media screen and (max-width: 768px) {
+  .taskboard-column {
+    width: 100%; /* Full width on mobile */
+  }
+}
+
+/* Modal styling */
+.modal-content {
+  width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Adjust the width of the calendar */
+#calendar {
+  width: 100%;
+  max-width: 1200px; /* Increase max-width for larger screens */
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#month-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Style the table to make it wider and more readable */
+#calendar table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#calendar th,
+#calendar td {
+  text-align: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+}
+
+#calendar th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+/* Make task days stand out */
+#calendar .task-day {
+  background-color: #e1f5fe; /* Light blue background for days with tasks */
+  cursor: pointer;
+}
+
+#calendar .task-day:hover {
+  background-color: #b3e5fc; /* Slightly darker blue when hovering */
+}
+
+/* Adjust the calendar layout for responsiveness */
+@media screen and (max-width: 768px) {
+  #calendar {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  #calendar th,
+  #calendar td {
+    font-size: 14px; /* Smaller font size on mobile */
+    padding: 10px;
+  }
+}
+
+.calendar-flex {
+  display: flex;
+  align-items: flex-start; /* Align items to the top */
+  gap: 80px;
+  margin-top: 15px;
+}
+
+.task-list-container {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  max-height: 600px; /* Limit the height of the task list */
+  overflow-y: auto; /* Add scrolling if tasks overflow */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.task-list-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  transition: ease-in-out;
+  transition-duration: 500ms;
+}
+
+.task-list-container li {
+  background-color: #fff;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px; /* Space between tasks */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Form title */
+.form-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+
+/* Form layout */
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form fields */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: var(--primary);
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+/* Submit button */
+.form-actions {
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(55, 123, 168, 0.5);
+}
+
+/* Apply background image */
+body {
+  margin: 0;
+  padding: 0;
+  background: url("/static/images/pixel-zen-garden.png") no-repeat center center
+    fixed; /* Set your image URL */
+  background-size: cover;
+  height: 100vh;
+  font-family: "Playfair Display", serif;
+  z-index: -1; /* Above the blurred background */
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    218,
+    217,
+    217,
+    0.743
+  ); /* White overlay for brightness */
+  backdrop-filter: blur(10px); /* Blur the background */
+  z-index: 0; /* Lower than the nav bar's z-index */
+}
+
+/* Content styling */
+.content {
+  position: relative;
+  z-index: 1; /* Above the blurred background */
+  padding: 20px;
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Sidebar styles */
+.sidenav-info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: rgba(179, 129, 95, 0.864); /* Slightly transparent */
+  overflow-x: hidden;
+  transition: 0.5s;
+  z-index: 2;
+}
+
+.sidenav-info a {
+  color: #f9f9f9;
+}
+
+.sidenav-info a:hover {
+  color: #82eae2;
+}
+
+.no-teams-message,
+.no-projects-message {
+  text-align: center;
+  background-color: var(--light-gray);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  font-family: var(--font-primary);
+  color: var(--gray);
+}
+
+.no-teams-message h3,
+.no-projects-message h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+.no-teams-message p,
+.no-projects-message h3 {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.add-team-prompt {
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-team-prompt:hover {
+  background-color: var(--primary-hover);
+}
+
+/* .box-info-t:hover {
+  background-color: #d7dbdb;
+} */
+
+/* Actions Container */
+.team-actions {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Space between buttons */
+}
+
+/* Button Styles */
+.edit-button,
+.delete-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: #fff;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px; /* Compact padding */
+}
+
+.edit-button {
+  color: #377ba8;
+}
+
+.delete-button {
+  color: #cc2f2e;
+}
+
+.edit-button:hover {
+  background-color: #377ba8;
+  color: white;
+  border-color: #377ba8;
+}
+
+.delete-button:hover {
+  background-color: #cc2f2e;
+  color: white;
+  border-color: #cc2f2e;
+}
+
+/* SVG icons for edit and delete */
+.edit-icon,
+.delete-icon {
+  width: 16px;
+  height: 16px;
+  background-size: contain; /* Ensure icons fit nicely */
+}
+
+.edit-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7'%3E%3C/path%3E%3Cpath d='M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.delete-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='3 6 5 6 21 6'%3E%3C/polyline%3E%3Cpath d='M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2'%3E%3C/path%3E%3C/svg%3E");
+}
+
+/* Make entire card clickable */
+.team-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 15px;
+}
+.box-info-t {
+  position: relative;
+  width: 60%;
+  margin-right: 20px;
+  padding-right: 20px;
+  background-color: var(--light-gray); /* Background color */
+  border: 1px solid var(--gray); /* Border for clarity */
+  border-radius: 8px;
+  padding: 10px; /* Reduced padding */
+  margin-bottom: 15px; /* Reduced spacing between boxes */
+  display: flex; /* Flex layout for alignment */
+  flex-direction: column;
+  gap: 10px; /* Space between elements */
+}
+
+
+
+.taskboard-btn {
+  margin-right: auto; /* Aligns the button to the right */
+  width: 100%;
+}
+
+
+
+.task-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.task-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: calc(33.333% - 10px); /* Three cards per row */
+  box-sizing: border-box;
+}
+
+.task-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.task-card p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.task-card p strong {
+  color: #000;
+}

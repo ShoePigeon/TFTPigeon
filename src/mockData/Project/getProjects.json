@@ -1,0 +1,20 @@
+[
+  {
+    "project_id": 22,
+    "project_name": "Dashboard Redesign",
+    "description": "UI/UX updates for the company dashboard.",
+    "create_datetime": "2024-11-15 10:00:00",
+    "update_datetime": "2024-11-18 14:00:00",
+    "user_id": 1,
+    "status": "In Progress"
+  },
+  {
+    "project_id": 102,
+    "project_name": "Data Analytics Pipeline",
+    "description": "Implementing a data pipeline for analytics.",
+    "create_datetime": "2024-10-20 08:00:00",
+    "update_datetime": "2024-11-10 16:00:00",
+    "user_id": 1,
+    "status": "Complete"
+  }
+]

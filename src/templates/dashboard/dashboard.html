@@ -1,0 +1,48 @@
+{% extends 'base.html' %} {% block header %}
+<div class="container-placeholder">
+  <h1>{% block title %}Developer Dashboard{% endblock %}</h1>
+</div>
+{% endblock %} {% block content %}
+<div class="container-dashboard">
+  <!--navbar section-->
+  <aside>
+    <div class="top">
+      <div class="logo">
+        <h2><span class="danger">Logo</span></h2>
+      </div>
+      <!--end top-->
+      <div class="close">
+        <span class="material-symbols-outlined"> search </span>
+      </div>
+    </div>
+    <div class="sidebar">
+      <a href="">
+        <span class="material-symbols-outlined">grid_view</span>
+        <h3>Teams</h3>
+      </a>
+      <a href="">
+        <span class="material-symbols-outlined">grid_view</span>
+        <h3>Projects</h3>
+      </a>
+      <a href="">
+        <span class="material-symbols-outlined">grid_view</span>
+        <h3>Calendar</h3>
+      </a>
+      <a href="">
+        <span class="material-symbols-outlined"></span>
+        <h3>Settings</h3>
+      </a>
+      <a href="">
+        <span class="material-symbols-outlined">grid_view</span>
+        <h3>Configurations</h3>
+      </a>
+    </div>
+  </aside>
+  <!--navbar section ends-->
+  <!--main section-->
+  <main>
+    <h1>main</h1>
+  </main>
+  <!--main section ends-->
+</div>
+{% endblock %}

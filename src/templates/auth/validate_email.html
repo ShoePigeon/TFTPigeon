@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}Validate Email{% endblock %}</h1>
+{% endblock %} {% block content %}
+<div class="form-container">
+  <!-- Left side: Image -->
+  <div class="image-side">
+    <img
+      src="{{ url_for('static', filename='images/validate-email.png') }}"
+      alt="Image"
+      class="form-image"
+    />
+  </div>
+
+  <!-- Right side: Form -->
+  <div class="form-side">
+    <form method="post">
+      <!-- Username Field -->
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input
+          name="email"
+          class="input-field"  
+          id="email"
+          type="email"
+          required
+        />
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-field">
+        <label for="code" >Validation Code</label>
+        <input
+          type="text" 
+          class="input-field"
+          name="code"
+          id="code"
+          required
+        />
+      </div>
+      <!-- Submit Button -->
+      <div class="form-field">
+        <input
+          type="submit"
+          class="btn btn-medium btn-rounded"
+          value="Validate"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+

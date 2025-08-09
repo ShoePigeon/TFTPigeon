@@ -1,0 +1,147 @@
+{% extends 'base.html' %} {% block header %}
+<div class="container-placeholder-info">
+  <!-- Header Text -->
+  <h1>Home Page for TFT info</h1>
+{% endblock %} {% block content %}
+<div class="landing-controls">
+  <div>
+    <label class="custom-checkbox">
+      <input
+        type="checkbox"
+        id="teamsCheckbox"
+        checked
+        onchange="toggleVisibility('teamsContainer')"
+      />
+      <span class="checkbox-custom"></span> Teams
+    </label>
+  </div>
+  <div>
+    <label class="custom-checkbox">
+      <input
+        type="checkbox"
+        id="projectsCheckbox"
+        checked
+        onchange="toggleVisibility('projectsContainer')"
+      />
+      <span class="checkbox-custom"></span> Projects
+    </label>
+  </div>
+  <div>
+    <label class="custom-checkbox">
+      <input
+        type="checkbox"
+        id="deadlinesCheckbox"
+        checked
+        onchange="toggleVisibility('deadlinesContainer')"
+      />
+      <span class="checkbox-custom"></span> Deadlines
+    </label>
+  </div>
+</div>
+</div>
+<div class="form-container-info">
+  <!-- Grid Container -->
+  <div class="grid-container" id="gridContainer">
+    <div class="grid-item" id="teamsContainer">
+      <h3>Teams</h3>
+      {% if teams %}
+        {% for team in teams %}
+          <a href="/team/get/{{ team.team_id }}" class="project-link">
+            <div class="project-card">
+              <h2>{{ team.team_name }}</h2>
+              <p><strong>Description:</strong> {{ team.description }}</p>
+            </div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <p>No teams for this user.</p>
+      {% endif %}
+    </div>
+    
+    
+    
+    <div class="grid-item" id="projectsContainer">
+      <h3>Your Recent Projects</h3>
+      {% if projects %} 
+        {% for project in projects %}
+          <a href="/project/get/{{ project.project_id }}" class="project-link">
+            <div class="project-card">
+              <h2>{{ project['project_name'] }}</h2>
+              <p><strong>Description:</strong> {{ project['description'] }}</p>
+              <p><strong>Created At:</strong> {{ project['create_datetime'] }}</p>
+              <div
+                class="landing-page-status 
+                {% if project['status'] == 'IN PROGRESS' %}status-in-progress{% endif %} 
+                {% if project['status'] == 'COMPLETED' %}status-completed{% endif %} 
+                {% if project['status'] == 'NOT STARTED' %}status-not-started{% endif %}"
+              >
+                {{ project['status'] }}
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <p>No projects yet.</p>
+      {% endif %}
+    </div>
+    
+
+    <div class="grid-item" id="deadlinesContainer">
+      <h3>Deadlines</h3>
+      {% if tasks %}
+        <div class="task-cards-container">
+          {% for task in tasks %}
+          <div class="task-card">
+            <h4 class="task-name">{{ task.task_name }}</h4>
+            <p>{{ task.deadline }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No upcoming deadlines.</p>
+      {% endif %}
+    </div>
+
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+
+    function toggleVisibility(containerId) {
+      const container = document.getElementById(containerId);
+      container.style.display =
+        container.style.display === "none" ? "block" : "none";
+      updateGridLayout();
+    }
+
+    function updateGridLayout() {
+      const gridContainer = document.querySelector(".grid-container");
+
+      const elements = [
+        document.getElementById("teamsContainer"),
+        document.getElementById("projectsContainer"),
+        document.getElementById("deadlinesContainer"),
+      ];
+
+      // Count visible elements
+      const visibleCount = elements.filter(
+        (el) => window.getComputedStyle(el).display === "block",
+      ).length;
+
+      // Update grid-template-columns based on visibleCount
+      gridContainer.style.gridTemplateColumns = `repeat(${visibleCount}, 1fr)`;
+
+      console.log(`Updated grid layout to ${visibleCount} columns.`);
+    }
+
+    // Hide all containers initially
+    document.getElementById("teamsContainer").style.display = "block";
+    document.getElementById("projectsContainer").style.display = "block";
+    document.getElementById("deadlinesContainer").style.display = "block";
+  </script>
+  {% endblock %}
+</div>

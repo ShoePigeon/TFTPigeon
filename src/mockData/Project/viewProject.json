@@ -1,0 +1,62 @@
+{
+  "project_id": 22,
+  "project_name": "Dashboard Redesign",
+  "description": "UI/UX updates for the company dashboard.",
+  "create_datetime": "2024-11-15 10:00:00",
+  "update_datetime": "2024-11-18 14:00:00",
+  "user_id": 1,
+  "team_members": [
+    {
+      "user_id": 1,
+      "user_name": "john_doe",
+      "is_owner": true
+    },
+    {
+      "user_id": 2,
+      "user_name": "jane_smith",
+      "is_owner": false
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": 201,
+      "task_name": "Create wireframes",
+      "description": "Design wireframes for the new dashboard layout.",
+      "create_datetime": "2024-11-15 12:00:00",
+      "update_datetime": null,
+      "deadline": "2024-12-03 17:00:00",
+      "priority": 1,
+      "status": "In Progress",
+      "tags": [
+        {
+          "tag_id": 1,
+          "tag_name": "UI/UX"
+        },
+        {
+          "tag_id": 2,
+          "tag_name": "Design"
+        }
+      ]
+    },
+    {
+      "task_id": 202,
+      "task_name": "Develop frontend components",
+      "description": "Create reusable React components for the dashboard.",
+      "create_datetime": "2024-11-16 10:00:00",
+      "update_datetime": null,
+      "deadline": "2024-11-30 17:00:00",
+      "priority": 2,
+      "status": "Not Started",
+      "tags": [
+        {
+          "tag_id": 3,
+          "tag_name": "Frontend"
+        },
+        {
+          "tag_id": 4,
+          "tag_name": "React"
+        }
+      ]
+    }
+  ]
+}

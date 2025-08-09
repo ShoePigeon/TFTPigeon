@@ -1,0 +1,255 @@
+{% extends 'base.html' %} {% block header %}
+<div class="container-placeholder-info">
+  <!-- Header Text -->
+  <h1>My Teams</h1>
+</div>
+{% endblock %} {% block content %}
+<div class="form-container-info">
+  <!-- Check if teams exist -->
+  {% if teams %} {% for team in teams %}
+  <div class="box-info-t">
+    <div class="team-actions">
+      <form
+        action="/update/{{ team.team_id }}"
+        method="get"
+        style="display: inline"
+      >
+        <button
+          type="button"
+          class="edit-button"
+          title="Edit Team Details"
+          onclick="openUpdateTeamModal('{{ team.team_id }}', '{{ team.team_name }}', '{{ team.description }}', '[]')"
+        >
+          <div class="edit-icon"></div>
+        </button>
+      </form>
+      <form
+        action="delete/{{ team.team_id }}"
+        method="post"
+        style="display: inline"
+        onsubmit="return confirm('Are you sure you want to delete this team?');"
+      >
+        <button type="submit" class="delete-button" title="Delete Team">
+          <div class="delete-icon"></div>
+        </button>
+      </form>
+    </div>
+    <a href="/team/get/{{ team.team_id }}" class="team-link">
+      <div class="team-header">
+        <h3>{{ team.team_name }}</h3>
+      </div>
+      <div class="team-header">
+        <h3>{{ team.description }}</h3>
+      </div>
+
+      <p><strong>Team Owners:</strong></p>
+      <div class="grid-container">
+        {% for member in team.team_owners %}
+        <span class="tag">{{ member }}</span>
+        {% endfor %}
+      </div>
+
+      <!-- Projects Section -->
+      <p><strong>Projects:</strong></p>
+      <div class="grid-container">
+        {% for project in team.projects %}
+        <form
+          action="/project/get/{{ project.project_id }}"
+          method="get"
+          style="display: inline"
+        >
+          <button type="submit" class="project-button">
+            {{ project.project_name }}
+          </button>
+        </form>
+        {% endfor %}
+      </div>
+
+      <!-- Team Members Section -->
+      <p><strong>Team Members:</strong></p>
+      <div class="grid-container">
+        {% for member in team.team_members %} {% if member not in
+        team.team_owners %}
+        <span class="tag" style="background-color: lightblue"
+          >{{ member }}</span
+        >
+        {% endif %} {% endfor %}
+      </div>
+    </a>
+  </div>
+  {% endfor %} {% else %}
+  <!-- Display message if no teams exist -->
+  <div class="no-teams-message">
+    <h3>You don't have any teams yet!</h3>
+    <p>Create a new team and get started.</p>
+    <button class="btn btn-medium add-team-prompt" onclick="openAddTeamModal()">
+      Add a Team
+    </button>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Floating Add Team Button -->
+<button class="add-team-button" onclick="openAddTeamModal()">+</button>
+
+<!-- Add Team Modal -->
+<div id="addTeamModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeAddTeamModal()">&times;</span>
+    <h2>Add New Team</h2>
+    <form id="addTeamForm" action="/team/create" method="post">
+      <!-- Team Name -->
+      <div class="form-group">
+        <label for="team_name">Team Name:</label>
+        <input
+          type="text"
+          id="team_name"
+          name="team_name"
+          class="input-field"
+          required
+        />
+        <label for="description">Description:</label>
+        <input
+          type="text"
+          id="description"
+          name="description"
+          class="input-field"
+          required
+        />
+      </div>
+      {% for user in users %} {% if user.user_id == owner %}
+      <!-- Team Owner (Logged-in User) -->
+      <div class="form-group">
+        <label for="owner_user_id">Team Owner:</label>
+        <input
+          type="text"
+          id="owner_user_id"
+          name="owner_user_id"
+          class="input-field"
+          value="{{user.user_name}}"
+          readonly
+        />
+      </div>
+      {% endif %} {% endfor %}
+
+      <!-- Assignees Dropdown -->
+      <div class="form-group">
+        <label for="assignees">Select Assignees:</label>
+        <select id="assignees" name="assignees" class="input-field" multiple>
+          {% for user in users %}
+          <option value="{{ user.user_id }}">{{ user.user_name }}</option>
+          {% endfor %}
+        </select>
+        <small>Hold Ctrl (Cmd on Mac) to select multiple assignees.</small>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-medium">Add Team</button>
+    </form>
+  </div>
+</div>
+
+<div id="updateTeamModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeUpdateTeamModal()">&times;</span>
+    <h2>Update Team</h2>
+    <form id="updateTeamForm" action="/team/update" method="post">
+      <!-- Hidden Team ID -->
+      <input type="hidden" id="update_team_id" name="team_id" />
+      <input type="hidden" id="owner_id" name="owner_id" value="{{ owner }}" />
+
+      <!-- Team Name -->
+      <div class="form-group">
+        <label for="update_team_name">Team Name:</label>
+        <input
+          type="text"
+          id="update_team_name"
+          name="team_name"
+          class="input-field"
+          required
+        />
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="update_description">Description:</label>
+        <input
+          type="text"
+          id="update_description"
+          name="description"
+          class="input-field"
+          required
+        />
+      </div>
+
+      <!-- Assignees Dropdown -->
+      <div class="form-group">
+        <label for="update_assignees">Select Assignees:</label>
+        <select
+          id="update_assignees"
+          name="assignees"
+          class="input-field"
+          multiple
+        >
+          {% for user in users %}
+          <option value="{{ user.user_id }}">{{ user.user_name }}</option>
+          {% endfor %}
+        </select>
+        <small>Hold Ctrl (Cmd on Mac) to select multiple assignees.</small>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-medium">Update Team</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+
+  function openAddTeamModal() {
+    document.getElementById("addTeamModal").style.display = "block";
+  }
+
+  function closeAddTeamModal() {
+    document.getElementById("addTeamModal").style.display = "none";
+  }
+  // Function to open the Update Project Modal
+  function openUpdateTeamModal(teamId, name, description, assignees) {
+    console.log("gerhgserghre");
+    // Set the values of the fields in the modal
+    document.getElementById("update_team_id").value = teamId;
+    document.getElementById("update_team_name").value = name;
+    document.getElementById("update_description").value = description;
+    document.getElementById("update_assignees").value = assignees;
+    // Open the modal
+    document.getElementById("updateTeamModal").style.display = "block";
+  }
+
+  function closeUpdateTeamModal() {
+    document.getElementById("updateTeamModal").style.display = "none";
+  }
+
+  // Close modal when clicking outside of it
+  window.onclick = function (event) {
+    const modal = document.getElementById("updateTeamModal");
+    if (event.target === modal) {
+      closeUpdateTeamModal();
+    }
+  };
+
+  // Close modal when clicking outside of it
+  window.onclick = function (event) {
+    const modal = document.getElementById("addTeamModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  };
+</script>
+{% endblock %}

@@ -1,0 +1,334 @@
+{% extends 'base.html' %} {% block header %}
+<div class="container-placeholder-info">
+  <!-- Navigation Button -->
+  <!-- <span onclick="openNav()">NAVIGATION</span> -->
+  <!-- Header Text -->
+  <h1>{{ team.team_name }}</h1>
+</div>
+{% endblock %} {% block content %}
+<div class="form-container-info">
+  <!-- Sidebar -->
+  <div class="sidenav-info" id="mySidenav">
+    <a href="javascript:void(0)" onclick="closeNav()">CLOSE</a>
+    <a href="/team/list">Teams</a>
+    <a href="/project/list">Projects</a>
+    <a href="#">Calendar</a>
+    <a href="#">Settings</a>
+  </div>
+</div>
+<!-- Closes "form-container-info" -->
+
+<div class="flex-container-info full-width">
+  <div class="box-info">
+    <div class="row-items">
+      <h3>Description</h3>
+      <div class="box-info">{{ team.description }}</div>
+
+      <h3>Team Members &nbsp;&nbsp;
+        <span>
+          <button onclick="openModal()" class="btn btn-small btn-rounded">
+            +
+          </button>
+        </span>
+      </h3>
+      <div class="box-info">
+        <ul class="assignee-list">
+          {% if team.team_members %} {% for member in team.team_members %}
+          <li class="assignee-item">
+            <span class="assignee-name">{{ member.user_name }}</span>
+            {% if member.user_name in team.team_owners %}
+            <span class="role-tag owner">Owner</span>
+            {% else %}
+            <span class="role-tag member">Member</span>
+            {% endif %}
+          </li>
+          {% endfor %} {% else %}
+          <li class="no-assignees">No assignees</li>
+          {% endif %}
+        </ul>
+      </div>
+
+      
+    </div>
+    <!-- Closes "row-items" -->
+  </div>
+  <!-- Closes "box-info" -->
+
+  <div class="box-info full-width">
+    <h3>Projects &nbsp;&nbsp;
+      <span>
+        <button
+        class="btn btn-medium"
+        onclick="openProjectModal()">
+        +
+        </button>
+      </span>
+    </h3> 
+    <!-- Add New Project Button -->
+    <div >
+      
+    </div>
+    <div class="projects-container">
+      {% if projects %} {% for project in projects %}
+      <div class="project-item">
+        <a href="/project/get/{{ project.project_id }}">
+          <h3>{{ project.project_name }}</h3>
+          <p class="role-tag status">Status: {{ project.status }}</p>
+        </a>
+        <!-- Edit and Delete Buttons -->
+        <div class="project-actions">
+          <form method="get" style="display: inline">
+            <button
+              type="button"
+              class="edit-button"
+              title="Edit Project"
+              onclick="openUpdateProjectModal('{{ project.project_id }}', '{{ project.project_name }}', '{{ project.description }}', '{{ project.status }}')"
+            >
+              <div class="edit-icon"></div>
+            </button>
+          </form>
+          <form
+            action="/project/delete_project"
+            method="post"
+            style="display: inline"
+            onsubmit="return confirm('Are you sure you want to delete this project?');"
+          >
+            <input
+              type="hidden"
+              name="project_id"
+              value="{{ project.project_id }}"
+            />
+            <button type="submit" class="delete-button" title="Delete Project">
+              <div class="delete-icon"></div>
+            </button>
+          </form>
+        </div>
+      </div>
+      <!-- Closes "project-item" -->
+      {% endfor %} {% else %}
+      <p>No projects available for this team.</p>
+      {% endif %}
+    </div>
+    <!-- Closes "projects-container" -->
+  </div>
+  <!-- Closes "box-info full-width" -->
+</div>
+<!-- Closes "flex-container-info full-width" -->
+
+<!-- Modal for Adding a New Member -->
+<div id="addMemberModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h3>Add a New Team Member</h3>
+    <form action="/team/add/member" method="POST" id="addMemberForm">
+      <input type="hidden" name="team_id" value="{{ team.team_id }}" />
+
+      <!-- Dropdown for Member Selection -->
+      <div class="form-field">
+        <label for="member_name">Select Member:</label>
+        <select
+          id="member_name"
+          name="member_name"
+          class="input-field"
+          required
+        >
+          {% for user in users %} {% if user.user_name not in team.team_members
+          | map(attribute='user_name') %}
+          <option value="{{ user.user_id }}">{{ user.user_name }}</option>
+          {% endif %} {% endfor %}
+        </select>
+      </div>
+
+      <!-- Role Selection -->
+      <div class="form-field">
+        <label for="is_owner">Role:</label>
+        <select id="is_owner" name="is_owner" class="input-field">
+          <option value="0">Member</option>
+          <option value="1">Owner</option>
+        </select>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-field">
+        <input
+          type="submit"
+          class="btn btn-small btn-rounded"
+          value="Add Member"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Closes "addMemberModal" -->
+
+<!-- Modal for Adding a New Project -->
+<div id="addProjectModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeProjectModal()">&times;</span>
+    <h3>Create a New Project</h3>
+    <form
+      action="/project/{{ team.team_id }}/create_project"
+      method="POST"
+      id="addProjectForm"
+    >
+      <input type="hidden" name="team_id" value="{{ team.team_id }}" />
+
+      <!-- Project Name Field -->
+      <div class="form-field">
+        <label for="project_name">Project Name:</label>
+        <input
+          type="text"
+          id="project_name"
+          name="project_name"
+          class="input-field"
+          required
+        />
+      </div>
+
+      <!-- Project Description Field -->
+      <div class="form-field">
+        <label for="description">Description:</label>
+        <textarea
+          id="description"
+          name="description"
+          class="input-field"
+          required
+        ></textarea>
+      </div>
+
+      <!-- Project Status Field -->
+      <div class="form-field">
+        <label for="status">Status:</label>
+        <select id="status" name="status" class="input-field">
+          <option value="NOT STARTED">Not Started</option>
+          <option value="IN PROGRESS">In Progress</option>
+          <option value="COMPLETED">Completed</option>
+        </select>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-field">
+        <input
+          type="submit"
+          class="btn btn-small btn-rounded"
+          value="Create Project"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Closes "addProjectModal" -->
+
+<!-- Modal for Updating a Project -->
+<div id="updateProjectModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeUpdateProjectModal()">&times;</span>
+    <h3>Update Project</h3>
+    <form action="/project/update_project" method="POST" id="updateProjectForm">
+      <!-- Hidden Field to hold the Project ID -->
+      <input type="hidden" name="project_id" id="update_project_id" />
+
+      <!-- Project Name Field -->
+      <div class="form-field">
+        <label for="update_project_name">Project Name:</label>
+        <input
+          type="text"
+          id="update_project_name"
+          name="project_name"
+          class="input-field"
+          required
+        />
+      </div>
+
+      <!-- Project Description Field -->
+      <div class="form-field">
+        <label for="update_description">Description:</label>
+        <textarea
+          id="update_description"
+          name="description"
+          class="input-field"
+          required
+        ></textarea>
+      </div>
+
+      <!-- Project Status Field -->
+      <div class="form-field">
+        <label for="update_status">Status:</label>
+        <select id="update_status" name="status" class="input-field">
+          <option value="NOT STARTED">Not Started</option>
+          <option value="IN PROGRESS">In Progress</option>
+          <option value="COMPLETED">Completed</option>
+        </select>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-field">
+        <input
+          type="submit"
+          class="btn btn-small btn-rounded"
+          value="Update Project"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Closes "updateProjectModal" -->
+
+<script>
+  // navbar
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+
+  // modal.js
+
+  // Function to open the modal
+  function openModal() {
+    document.getElementById("addMemberModal").style.display = "block";
+  }
+
+  // Function to close the modal
+  function closeModal() {
+    document.getElementById("addMemberModal").style.display = "none";
+  }
+  // Function to open the Add Project Modal
+  function openProjectModal() {
+    document.getElementById("addProjectModal").style.display = "block";
+  }
+
+  // Function to close the Add Project Modal
+  function closeProjectModal() {
+    document.getElementById("addProjectModal").style.display = "none";
+  }
+
+  // Function to open the Update Project Modal and set its fields
+  function openUpdateProjectModal(
+    projectId,
+    projectName,
+    projectDescription,
+    projectStatus,
+  ) {
+    // Set the values of the fields in the modal
+    document.getElementById("update_project_id").value = projectId;
+    document.getElementById("update_project_name").value = projectName;
+    document.getElementById("update_description").value = projectDescription;
+    document.getElementById("update_status").value = projectStatus;
+
+    // Open the modal
+    document.getElementById("updateProjectModal").style.display = "block";
+  }
+
+  // Function to close the Update Project Modal
+  function closeUpdateProjectModal() {
+    document.getElementById("updateProjectModal").style.display = "none";
+  }
+
+  function closeUpdateProjectModal() {
+    document.getElementById("updateProjectModal").style.display = "none";
+  }
+</script>
+{% endblock %}

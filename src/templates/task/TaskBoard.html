@@ -1,0 +1,262 @@
+{% extends 'base.html' %} {% block header %}
+<div class="container-placeholder-info">
+  <h1>{{ project_name }}</h1>
+</div>
+{% endblock %} {% block content %}
+
+<div class="flex-container-info full-width">
+  <div class="taskboard-container">
+    <!-- Not Started Column -->
+    <div
+      class="taskboard-column"
+      id="notStartedColumn"
+      ondrop="drop(event)"
+      ondragover="allowDrop(event)"
+    >
+      <h3>Not Started</h3>
+      {% for task in tasks %} {% if task.status|upper == 'NOT STARTED' %}
+      <div
+        class="task-item"
+        id="task-{{ task.task_id }}"
+        draggable="true"
+        ondragstart="drag(event)"
+        data-task-name="{{ task.task_name }}"
+        data-task-description="{{ task.description }}"
+        data-task-deadline="{{ task.deadline }}"
+        data-task-priority="{{ task.priority }}"
+        data-task-status="{{ task.status }}"
+        data-task-projectId = "{{ project_id}}"
+      >
+        <h4>{{ task.task_name }}</h4>
+        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+        <span
+          class="task-priority {% if task.priority|upper == 'HIGH' %}priority-high{% elif task.priority|upper == 'MEDIUM' %}priority-medium{% else %}priority-low{% endif %}"
+        >
+          Priority: {{ task.priority }}
+        </span>
+      </div>
+      {% endif %} {% endfor %}
+    </div>
+
+    <!-- In Progress Column -->
+    <div
+      class="taskboard-column"
+      id="inProgressColumn"
+      ondrop="drop(event)"
+      ondragover="allowDrop(event)"
+    >
+      <h3>In Progress</h3>
+      {% for task in tasks %} {% if task.status|upper == 'IN PROGRESS' %}
+      <div
+        class="task-item"
+        id="task-{{ task.task_id }}"
+        draggable="true"
+        ondragstart="drag(event)"
+        data-task-name="{{ task.task_name }}"
+        data-task-description="{{ task.description }}"
+        data-task-deadline="{{ task.deadline }}"
+        data-task-priority="{{ task.priority }}"
+        data-task-status="{{ task.status }}"
+        data-task-projectId = "{{ project_id}}"
+      >
+        <h4>{{ task.task_name }}</h4>
+        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+        <span
+          class="task-priority {% if task.priority|upper == 'HIGH' %}priority-high{% elif task.priority|upper == 'MEDIUM' %}priority-medium{% else %}priority-low{% endif %}"
+        >
+          Priority: {{ task.priority }}
+        </span>
+      </div>
+      {% endif %} {% endfor %}
+    </div>
+
+    <!-- Completed Column -->
+    <div
+      class="taskboard-column"
+      id="completedColumn"
+      ondrop="drop(event)"
+      ondragover="allowDrop(event)"
+    >
+      <h3>Completed</h3>
+      {% for task in tasks %} {% if task.status|upper == 'COMPLETED' %}
+      <div
+        class="task-item"
+        id="task-{{ task.task_id }}"
+        draggable="true"
+        ondragstart="drag(event)"
+        data-task-name="{{ task.task_name }}"
+        data-task-description="{{ task.description }}"
+        data-task-deadline="{{ task.deadline }}"
+        data-task-priority="{{ task.priority }}"
+        data-task-status="{{ task.status }}"
+        data-task-projectId = "{{ project_id}}"
+      >
+        <h4>{{ task.task_name }}</h4>
+        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+        <span
+          class="task-priority {% if task.priority|upper == 'HIGH' %}priority-high{% elif task.priority|upper == 'MEDIUM' %}priority-medium{% else %}priority-low{% endif %}"
+        >
+          Priority: {{ task.priority }}
+        </span>
+      </div>
+      {% endif %} {% endfor %}
+    </div>
+
+    <!-- Cancelled Column -->
+    <div
+      class="taskboard-column"
+      id="cancelledColumn"
+      ondrop="drop(event)"
+      ondragover="allowDrop(event)"
+    >
+      <h3>Cancelled</h3>
+      {% for task in tasks %} {% if task.status|upper == 'CANCELLED' %}
+      <div
+        class="task-item"
+        id="task-{{ task.task_id }}"
+        draggable="true"
+        ondragstart="drag(event)"
+        data-task-name="{{ task.task_name }}"
+        data-task-description="{{ task.description }}"
+        data-task-deadline="{{ task.deadline }}"
+        data-task-priority="{{ task.priority }}"
+        data-task-status="{{ task.status }}"
+        data-task-projectId = "{{ project_id}}"
+      >
+        <h4>{{ task.task_name }}</h4>
+        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+        <span
+          class="task-priority {% if task.priority|upper == 'HIGH' %}priority-high{% elif task.priority|upper == 'MEDIUM' %}priority-medium{% else %}priority-low{% endif %}"
+        >
+          Priority: {{ task.priority }}
+        </span>
+      </div>
+      {% endif %} {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  // Navigation functions
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+
+  // Drag and Drop functionality
+  document.addEventListener("DOMContentLoaded", function () {
+    const columns = document.querySelectorAll(".taskboard-column");
+    columns.forEach((column) => {
+      column.addEventListener("dragover", allowDrop);
+      column.addEventListener("drop", drop);
+    });
+
+    const taskItems = document.querySelectorAll(".task-item");
+    taskItems.forEach((taskItem) => {
+      taskItem.addEventListener("dragstart", drag);
+      taskItem.addEventListener("dragend", dragEnd);
+    });
+  });
+
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  function drag(ev) {
+    // Extract numeric part of the task_id (remove 'task-' prefix)
+    const taskId = ev.target.id.replace("task-", ""); // Removing 'task-' from the ID to get the numeric part
+    ev.dataTransfer.setData("taskId", taskId);
+    ev.target.classList.add("dragging");
+  }
+
+  function dragEnd(ev) {
+    ev.target.classList.remove("dragging");
+  }
+
+  function drop(ev) {
+    ev.preventDefault();
+    const taskId = ev.dataTransfer.getData("taskId"); // Get the numeric task ID
+    const draggedTask = document.getElementById("task-" + taskId); // Append 'task-' to form the correct ID
+    let targetColumn = ev.target;
+
+    while (
+      targetColumn &&
+      !targetColumn.classList.contains("taskboard-column")
+    ) {
+      targetColumn = targetColumn.parentNode;
+    }
+
+    if (!targetColumn) return;
+
+    targetColumn.appendChild(draggedTask);
+    const newStatus = getStatusForColumn(targetColumn.id);
+
+    // Get task details from the dragged element
+    const taskName = draggedTask.getAttribute("data-task-name");
+    const taskDescription = draggedTask.getAttribute("data-task-description");
+    const taskDeadline = draggedTask.getAttribute("data-task-deadline");
+    const taskPriority = draggedTask.getAttribute("data-task-priority");
+    const projectId = draggedTask.getAttribute("data-task-projectId");
+
+    updateTaskStatus(
+      taskId,
+      taskName,
+      taskDescription,
+      taskDeadline,
+      taskPriority,
+      newStatus,
+      projectId
+    );
+  }
+
+  function getStatusForColumn(columnId) {
+    if (columnId === "notStartedColumn") return "NOT STARTED";
+    if (columnId === "inProgressColumn") return "IN PROGRESS";
+    if (columnId === "completedColumn") return "COMPLETED";
+    if (columnId === "cancelledColumn") return "CANCELLED";
+    return "";
+  }
+
+  let popupShown = false;
+
+  function updateTaskStatus(
+    taskId,
+    taskName,
+    taskDescription,
+    taskDeadline,
+    taskPriority,
+    newStatus,
+    projectId
+  ) {
+    if (popupShown) return; // Prevent duplicate execution
+    popupShown = true;
+
+    fetch("/task/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        task_id: taskId,
+        task_name: taskName,
+        description: taskDescription,
+        deadline: taskDeadline,
+        priority: taskPriority,
+        status: newStatus,
+        project_id: projectId
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        window.location.reload();
+      })
+      .catch((error) => {
+        window.location.reload();
+      });
+  }
+</script>
+
+{% endblock %}
