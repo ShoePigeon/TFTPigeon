@@ -50,7 +50,7 @@ def create_project_view():
 @bp.route('/create_task', methods=['GET', 'POST'])
 def create_task():
     if request.method == 'POST':
-        # Handle form submission
+        # TODO: Handle form submission
         pass
     return render_template('project/createTask.html')
 

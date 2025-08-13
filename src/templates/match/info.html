@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="container-placeholder-info">
+  <!-- match/info.html -->
+  <h1>Match Information</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="form-container-info">
+
+  <!-- Sidebar -->
+  <div class="sidenav-info" id="mySidenav">
+    <a href="javascript:void(0)" onclick="closeNav()">CLOSE</a>
+    <a href="/team/list">Teams</a>
+    <a href="/project/list">Projects</a>
+    <a href="/calendar">Calendar</a>
+    <a href="#">Settings</a>
+  </div>
+
+  <!-- Match Search Form -->
+  <div class="match-grid">
+    <div class="no-match-message">
+      <h3>Search for Match Info</h3>
+      <p>Enter a username and match ID to view match details.</p>
+      <button class="btn btn-medium add-team-prompt" onclick="openMatchModal()">
+        Search Match
+      </button>
+    </div>
+  </div>
+
+  <!-- Floating Search Match Button -->
+  <button class="add-project-button" onclick="openMatchModal()">+</button>
+
+  <!-- Modal for Searching Match -->
+  <div id="addMatchModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeMatchModal()">&times;</span>
+      <h3>Find Match</h3>
+      <form action="/match/info" method="POST" id="addMatchForm">
+
+        <!-- Username Field -->
+        <div class="form-field">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="input-field"
+            required
+          />
+        </div>
+
+        <!-- Match ID Field -->
+        <div class="form-field">
+          <label for="match_id">Match ID:</label>
+          <input
+            type="text"
+            id="match_id"
+            name="match_id"
+            class="input-field"
+            required
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-field">
+          <input
+            type="submit"
+            class="btn btn-small btn-rounded"
+            value="Get Match Info"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+
+    function openMatchModal() {
+      document.getElementById("addMatchModal").style.display = "block";
+    }
+
+    function closeMatchModal() {
+      document.getElementById("addMatchModal").style.display = "none";
+    }
+  </script>
+
+  {% if match %}
+    <div class="match-results">
+      <h2>Match Results for {{ match.username }}</h2>
+      <p><strong>Match ID:</strong> {{ match.match_id }}</p>
+      <p><strong>Status:</strong> {{ match.status }}</p>
+      <h3>Players</h3>
+      <ul>
+        {% for player in match.players %}
+          <li>{{ player.name }} — Score: {{ player.score }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="container-placeholder-info">
+  <!-- match/list.html -->
+  <h1>Match Results</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="form-container-info">
+  <!-- Sidebar -->
+  <div class="sidenav-info" id="mySidenav">
+    <a href="javascript:void(0)" onclick="closeNav()">CLOSE</a>
+    <a href="/team/list">Teams</a>
+    <a href="/project/list">Projects</a>
+    <a href="/calendar">Calendar</a>
+    <a href="#">Settings</a>
+  </div>
+
+  <div class="match-grid">
+    {% if matches %}
+      {% for match in matches %}
+        <div class="match-item">
+          <h2>{{ match.riotIdGameName }}#{{ match.riotIdTagline }}</h2>
+          <p>Placement: {{ match.placement }}</p>
+          <p>Level: {{ match.level }}</p>
+          <p>Gold Left: {{ match.gold_left }}</p>
+          <p>Players Eliminated: {{ match.players_eliminated }}</p>
+          <p>Total Damage to Players: {{ match.total_damage_to_players }}</p>
+          <p>Last Round: {{ match.last_round }}</p>
+          <p>Status: 
+            {% if match.win %}
+              <span class="status-win">Win</span>
+            {% else %}
+              <span class="status-loss">Loss</span>
+            {% endif %}
+          </p>
+
+          <h3>Traits:</h3>
+          <ul>
+            {% for trait in match.traits %}
+              <li>{{ trait.name }} (Units: {{ trait.num_units }}, Tier: {{ trait.tier_current }}/{{ trait.tier_total }})</li>
+            {% endfor %}
+          </ul>
+
+          <h3>Units:</h3>
+          <ul>
+            {% for unit in match.units %}
+              <li>
+                {{ unit.character_id }} (Tier {{ unit.tier }})
+                {% if unit.itemNames %}
+                  - Items: {{ unit.itemNames | join(', ') }}
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="no-matches-message">
+        <h3>No match data available!</h3>
+        <p>Try loading some matches.</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+  </script>
+{% endblock %}

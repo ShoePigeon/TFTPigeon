@@ -6,6 +6,7 @@ from .routes.dashboard import bp as dashboard_bp
 from .routes.project import bp as project_bp
 from .routes.team import bp as team_bp
 from .routes.task import bp as task_bp
+from .routes.matchHistory import bp as matchHistory_bp  # Import the matchHistory blueprint
 
 
 def create_app(test_config=None):
@@ -37,6 +38,7 @@ def create_app(test_config=None):
     app.register_blueprint(project_bp)
     app.register_blueprint(team_bp)
     app.register_blueprint(task_bp)
+    app.register_blueprint(matchHistory_bp)  # Register the matchHistory blueprint
     app.add_url_rule('/', endpoint='index')
     
 
