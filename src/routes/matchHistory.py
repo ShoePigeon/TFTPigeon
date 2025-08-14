@@ -6,7 +6,7 @@ from src.services.match_service import (
     # update_matchHistory,
     # get_matchHistory_by_id,
     # get_matchHistory_by_user_id,
-    get_match_info_sync as get_match_info
+    get_match_info as get_match_info
 )
 from datetime import datetime
 
@@ -163,14 +163,13 @@ bp = Blueprint('match', __name__, url_prefix='/match')
 def match_info():
     if request.method == 'POST':
         username = request.form.get('username')
-        match_id = request.form.get('match_id')
+        game_tag = request.form.get('game_tag')
 
-        if not username or not match_id:
-            flash('Please provide both username and match ID.', 'error')
+        if not username or not game_tag:
+            flash('Please provide both username and game tag.', 'error')
             return redirect(url_for('match.match_info'))
 
-        # Replace this with your actual service call to fetch match data
-        match, error = get_match_info(username, match_id)
+        match, error = get_match_info(username, game_tag)
 
         if error:
             flash(f"Error fetching match info: {error}", 'error')

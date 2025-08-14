@@ -54,11 +54,11 @@
 
         <!-- Match ID Field -->
         <div class="form-field">
-          <label for="match_id">Match ID:</label>
+          <label for="game_tag">Game Tag:</label>
           <input
             type="text"
-            id="match_id"
-            name="match_id"
+            id="game_tag"
+            name="game_tag"
             class="input-field"
             required
           />
@@ -96,17 +96,39 @@
 
   {% if match %}
     <div class="match-results">
-      <h2>Match Results for {{ match.username }}</h2>
-      <p><strong>Match ID:</strong> {{ match.match_id }}</p>
-      <p><strong>Status:</strong> {{ match.status }}</p>
+      <h2>Match Results</h2>
+      <p><strong>Match ID:</strong> {{ match.gameId }}</p>
+      <p><strong>Duration:</strong> {{ match.game_length | round }} seconds</p>
+      <!-- <p><strong>Game Version:</strong> {{ match.version }}</p> -->
+
       <h3>Players</h3>
       <ul>
-        {% for player in match.players %}
-          <li>{{ player.name }} — Score: {{ player.score }}</li>
+        {% for participant in match.participants %}
+          <li>
+            <div class="player-card">
+              <h4>{{ participant.name }}</h4>
+              <p><strong>Placement:</strong> {{ participant.placement }}</p>
+              <p><strong>Level:</strong> {{ participant.level }}</p>
+              <p><strong>Gold Left:</strong> {{ participant.gold }}</p>
+              <p><strong>Damage Dealt:</strong> {{ participant.damage }}</p>
+              <p><strong>Active Traits:</strong> 
+                {% for trait in participant.traits %}
+                  {{ trait }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+              </p>
+              <p><strong>Units:</strong></p>
+              <ul>
+                {% for unit in participant.units %}
+                  <li>{{ unit.name }} (★{{ unit.star }})</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </li>
         {% endfor %}
       </ul>
     </div>
-  {% endif %}
+  {% endif %} 
+
 
 </div>
 {% endblock %}

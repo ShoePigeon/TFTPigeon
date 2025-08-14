@@ -11,8 +11,18 @@ app = create_app()
 # Initialize AsyncIOScheduler
 scheduler = AsyncIOScheduler()
 
-# Add a job for send all deadlines in 7 days to the scheduler
-scheduler.add_job(func=send_all_deadlines, args=[app], trigger='cron', second='*/10')
+# Add a job for send all deadlines in 7 days to the scheduler, this one runs every 10 seconds
+# scheduler.add_job(func=send_all_deadlines, args=[app], trigger='cron', second='*/10')
+# Run at 9:00 AM every day
+scheduler.add_job(
+    func=send_all_deadlines,
+    args=[app],
+    trigger='cron',
+    hour=9,
+    minute=0,
+    second=0
+)
+
 # Periodically call schedule_task_notifications to check for new tasks
 scheduler.add_job(
     func=schedule_task_notifications,
