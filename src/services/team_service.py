@@ -120,9 +120,11 @@ def create_team(team):
         # Add the owner as a member
         db.execute(team_members_query, (team_id, owner_id, 1))
 
-        # Add each assignee as a member
+        # Add each assignee as a member (skip the owner)
         for assignee_id in team['assignee']:
-            db.execute(team_members_query, (team_id, assignee_id, 0))
+            if assignee_id != owner_id:
+                db.execute(team_members_query, (team_id, assignee_id, 0))
+
 
         db.commit()
 

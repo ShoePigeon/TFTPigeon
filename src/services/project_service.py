@@ -1,3 +1,4 @@
+from src.models import db
 from src.models.db import get_db
 
 def get_project_by_id(project_id):
@@ -23,6 +24,32 @@ def get_project_by_id(project_id):
 
         if project is None:
             return None, "Project not found."
+
+        # Fetch team ID 
+        team_row = db.execute("""
+            SELECT t.team_id
+            FROM Project_teams t
+            WHERE t.project_id = ?
+        """, (project_id,)).fetchone()
+        print('Team ID fetch successful')
+
+        if team_row is None:
+            return None, "Team ID not found."
+
+        team_id = team_row['team_id']
+
+        # Fetch team Name
+        team_row = db.execute("""
+            SELECT t.team_id, t.team_name
+            FROM Team t
+            WHERE t.team_id = ?
+        """, (team_id,)).fetchone()
+        print('Team Name fetch successful')
+
+        if team_row is None:
+            return None, "Team name not found."
+
+        team_name = team_row['team_name']
 
         # Fetch team members for this project
         team_members_query = """
@@ -55,6 +82,7 @@ def get_project_by_id(project_id):
 
         # Convert project result into a dictionary
         project_dict = {
+            "team_name": team_name,
             "project_id": project["project_id"],
             "project_name": project["project_name"],
             "description": project["description"],
@@ -72,7 +100,7 @@ def get_project_by_id(project_id):
                 for task in tasks
             ]
         }
-        print(project_dict)
+        print("get_project_by_id Project Dict: ", project_dict)
         return project_dict, None
 
     except Exception as e:
@@ -90,7 +118,7 @@ def get_projects_by_user_id(user_id):
         list_projects as (
         SELECT project_id, team1.team_name FROM Project_Teams inner join team1 on team1.team_id = Project_Teams.team_id
         )
-        SELECT 
+        SELECT DISTINCT
         p.project_id,
         p.project_name,
         p.description, 
@@ -108,7 +136,7 @@ def get_projects_by_user_id(user_id):
     print("printing team name")
     print(projects)
     tasks_query = """
-        SELECT 
+        SELECT DISTINCT
             t.task_id,
             t.task_name,
             t.deadline,

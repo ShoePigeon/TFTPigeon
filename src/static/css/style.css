@@ -1,20 +1,38 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&display=swap");
 
+/*
 :root {
-  --primary: #a87c68; /* Warm terracotta */
+  --primary: #a87c68; // Warm terracotta 
   --primary-dark: #9d6b53;
-  --primary-hover: #b99884; /* Softer peachy terracotta */
-  --secondary: #cae0d5; /* Gentle sage green */
-  --secondary-hover: #dfe7e4; /* Muted pastel green */
-  --gray: #767676; /* Calm gray for text and borders */
-  --light-gray: #f7f5f2; /* Linen background */
-  --black: #2d2d2d; /* Soft charcoal */
-  --white: #fdfaf4; /* Creamy white */
+  --primary-hover: #b99884; // Softer peachy terracotta
+  --secondary: #cae0d5; // Gentle sage green
+  --secondary-hover: #dfe7e4; // Muted pastel green
+  --gray: #767676; // Calm gray for text and borders
+  --light-gray: #f7f5f2; // Linen background
+  --black: #2d2d2d; // Soft charcoal
+  --white: #fdfaf4; // Creamy white
   --font-primary: "Playfair Display", serif;
   --font-secondary: "Roboto", sans-serif;
   --danger: rgb(168, 86, 86);
   --success: rgb(143, 195, 143);
 }
+*/
+:root {
+  --primary: #4a90e2; /* Calm medium blue */
+  --primary-dark: #3570b3; /* Darker shade for contrast */
+  --primary-hover: #6aa8f0; /* Lighter, softer blue for hover */
+  --secondary: #cce0f5; /* Soft pastel sky blue */
+  --secondary-hover: #e0effa; /* Even lighter, airy blue for hover */
+  --gray: #767676; /* Neutral gray for text and borders */
+  --light-gray: #f2f7fb; /* Soft blue-gray background */
+  --black: #1c1c1c; /* Deep charcoal for text */
+  --white: #ffffff; /* Clean white */
+  --font-primary: "Playfair Display", serif;
+  --font-secondary: "Roboto", sans-serif;
+  --danger: rgb(220, 100, 100); /* Red-ish accent for alerts */
+  --success: rgb(100, 180, 100); /* Green-ish accent for success */
+}
+
 
 html {
   font-family: var(--font-primary);

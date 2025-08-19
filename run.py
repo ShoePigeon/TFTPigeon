@@ -37,10 +37,11 @@ async def main():
     """
     Main async function to start the scheduler and run the Flask app using Hypercorn.
     """
-    print("Starting the scheduler...")
-    scheduler.start()
-    print("Scheduler started.")
-    print("Scheduled jobs:", scheduler.get_jobs())
+    # # Start the scheduler
+    # print("Starting the scheduler...")
+    # scheduler.start()
+    # print("Scheduler started.")
+    # print("Scheduled jobs:", scheduler.get_jobs())
 
     # Configure and run Hypercorn to serve the Flask app
     config = Config()
@@ -48,7 +49,7 @@ async def main():
     await serve(app, config)
 
     # Shut down the scheduler gracefully when the app exits
-    scheduler.shutdown(wait=False)
+    # scheduler.shutdown(wait=False)
 
 if __name__ == "__main__":
     # Explicitly create a new event loop and run the main coroutine

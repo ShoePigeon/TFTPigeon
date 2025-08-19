@@ -122,6 +122,7 @@ def get_team_by_id(team_id=None):
             return jsonify({'error': error}), 404
         
         users,error =get_all_users()
+        
         return render_template('team/info.html', projects=projects, team=team,users=users)
     
     except Exception as e:
