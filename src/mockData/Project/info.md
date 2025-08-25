@@ -183,7 +183,6 @@ POST /tasks/create
   "project_id": 22,
   "assignee_id": 3
 }
-}
 ```
 
 #### Response Example

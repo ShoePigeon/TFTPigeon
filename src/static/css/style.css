@@ -1966,8 +1966,22 @@ body {
   box-sizing: border-box;
 }
 
+/* Medium screens: 2 per row */
+@media (max-width: 1300px) {
+  .task-card {
+    width: calc(50% - 10px);
+  }
+}
+
+/* Small screens: 1 per row */
+@media (max-width: 1000px) {
+  .task-card {
+    width: 100%;
+  }
+}
+
 .task-name {
-  font-size: 16px;
+  font-size: clamp(7px, 2vw, 18px);
   font-weight: bold;
   color: #333;
   margin-bottom: 8px;
@@ -1975,10 +1989,18 @@ body {
 
 .task-card p {
   margin: 5px 0;
-  font-size: 14px;
+  font-size: clamp(6px, 1.5vw, 16px);
   color: #666;
 }
 
 .task-card p strong {
   color: #000;
+}
+
+.task-name,
+.task-card p {
+  white-space: normal;        /* allows wrapping onto multiple lines */
+  overflow-wrap: break-word;  /* breaks long words if needed */
+  word-wrap: break-word;      /* legacy support */
+  hyphens: auto;              /* add "-" when breaking words */
 }
