@@ -76,9 +76,6 @@ def get_matchData(matchID):
     else:
         print(f"Error: {response.status_code} - {response.text}")
         return None
-# # Now call get_match_info_sync normally
-# match_info = get_match_info_sync("some_username", "some_match_id")
-# print(match_info)
 
 
 def filter_matchData(match_info):

@@ -3,35 +3,27 @@
 {% block header %}
 <div class="container-placeholder-info">
   <!-- match/info.html -->
-  <h1>Match Information</h1>
+  <h1>Game Checklist</h1>
 </div>
 {% endblock %}
 
 {% block content %}
 <div class="form-container-info">
 
-  <!-- Sidebar -->
-  <div class="sidenav-info" id="mySidenav">
-    <a href="javascript:void(0)" onclick="closeNav()">CLOSE</a>
-    <a href="/team/list">Teams</a>
-    <a href="/project/list">Projects</a>
-    <a href="/calendar">Calendar</a>
-    <a href="#">Settings</a>
-  </div>
-
-  <!-- Match Search Form -->
-  <div class="project-grid">
-    <div class="no-matches-message">
-      <h3>Search for Match Info</h3>
-      <p>Enter a username and match ID to view match details.</p>
-      <button class="btn btn-medium add-team-prompt" onclick="openMatchModal()">
-        Search Match
-      </button>
-    </div>
-  </div>
-
+    <h2>My Checklist</h2>
+    <ul>
+    <li>
+        <label><input type="checkbox"> Buy groceries</label>
+    </li>
+    <li>
+        <label><input type="checkbox"> Walk the dog</label>
+    </li>
+    <li>
+        <label><input type="checkbox"> Finish project</label>
+    </li>
+    </ul>
   <!-- Floating Search Match Button -->
-  <button class="add-project-button" onclick="openMatchModal()">+</button>
+  <button class="add-list-button" onclick="openMatchModal()">+</button>
 
   <!-- Modal for Searching Match -->
   <div id="addMatchModal" class="modal">
@@ -76,7 +68,7 @@
     </div>
   </div>
 
-  {% if match %}
+  {% if checklists %}
     <div class="match-results">
       <h2>Match Results</h2>
       <p><strong>Match ID:</strong> {{ match.gameId }}</p>
@@ -111,21 +103,7 @@
     </div>
   {% endif %} 
   <script>
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "250px";
-    }
 
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-    }
-
-    function openMatchModal() {
-      document.getElementById("addMatchModal").style.display = "block";
-    }
-
-    function closeMatchModal() {
-      document.getElementById("addMatchModal").style.display = "none";
-    }
   </script>
 
 

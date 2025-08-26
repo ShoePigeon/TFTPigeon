@@ -13,22 +13,22 @@ from datetime import datetime
 bp = Blueprint('match', __name__, url_prefix='/match')
 
 
-# @bp.route('/list')
-# def list_matches():
-#     """
-#     Fetch all matches for the logged-in user and render them.
-#     """
-#     try:
-#         user_id = session.get("user_id")
-#         if not user_id:
-#             return jsonify({'error': 'User not logged in'}), 401
+@bp.route('/checklist')
+def list_checklists():
+    """
+    create a checklist
+    """
+    try:
+        user_id = session.get("user_id")
+        if not user_id:
+            return jsonify({'error': 'User not logged in'}), 401
 
-#         matches, error = get_matchHistory_by_user_id(user_id)
-#         if error:
-#             return render_template('match/list.html', matches=[])
-#         return render_template('match/list.html', matches=matches)
-#     except Exception as e:
-#         return jsonify({'error': str(e)}), 500
+        checklists, error = get_checklists_by_user_id(user_id)
+        if error:
+            return render_template('match/checklist.html', checklists=[])
+        return render_template('match/checklist.html', checklists=checklists)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 # @bp.route('/create', methods=['POST'])
@@ -173,6 +173,7 @@ def match_info():
 
         if error:
             flash(f"Error fetching match info: {error}", 'error')
+            flash(f"Am currently requesting API authorization from RIOT. You're continued patience while this feature is underdoing maintenance is appreciated")
             return redirect(url_for('match.match_info'))
 
         # Pass match data to the template
