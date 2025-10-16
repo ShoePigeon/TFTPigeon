@@ -1,3 +1,9 @@
+TFTPigeon
+
+## About TFT Pigeon
+
+**TFT Pigeon** is a powerful and user friendly application designed to streamline development workflows, improve collaboration, and enhance productivity.
+
 ## Overview
 
 TFT Pigeon is a collaborative project management tool designed to streamline team coordination and task management. It includes features like team and project organization, task tracking, and email-based notification systems for deadlines. The dashboard also integrates a calendar view for a comprehensive overview of upcoming tasks.
