@@ -2,13 +2,15 @@ TFTPigeon
 
 ## About TFT Pigeon
 
-**TFT Pigeon** is a powerful and user friendly application designed to streamline development workflows, improve collaboration, and enhance productivity.
+**TFT Pigeon** is a powerful and user friendly application designed to streamline workflows, improve collaboration, and enhance productivity, with a focus on the TFT game from Riot.
 
 ## Overview
 
 TFT Pigeon is a collaborative project management tool designed to streamline team coordination and task management. It includes features like team and project organization, task tracking, and email-based notification systems for deadlines. The dashboard also integrates a calendar view for a comprehensive overview of upcoming tasks.
 Based on a group project I did with Team Ate, currently adding features to support TFT game play and analysis.
+![Website overall view](src/static/gifs/TFTPigeon_overview.gif)
 
+*Overview of the application and navigation*
 
 ## Key Features
 
@@ -17,6 +19,10 @@ Based on a group project I did with Team Ate, currently adding features to suppo
 - **Create Account:** Users can create an account with email verification using a one-time code.
 - **Login:** After verifying their email, users can log in to access the dashboard.
 - **Logout:** Users can log out by clicking the button in the top-right corner.
+
+![Signing in using email](src/static/gifs/TFTPigeon_Signup.gif)
+
+*Signing in using email on TFTPigeon — verification code is sent to email*
 
 ### Team Management
 
